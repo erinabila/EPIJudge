@@ -8,9 +8,25 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def even_odd(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+    '''
+    - Required to solve it without allocating additional storage
+    - Should take advantage of the fact that you can operate efficiently on both ends
+    - GOAL: reorder its entries so that the even entires appear first
+    '''
+    leftPtr, rightPtr = 0, len(A) - 1
 
+    while leftPtr < rightPtr:
+        # if even
+        if A[leftPtr] % 2 == 0:
+            leftPtr += 1
+        # else odd
+        else:
+            # swap w/o using temp variable 
+            A[leftPtr], A[rightPtr] = A[rightPtr], A[leftPtr]
+            # from if statement we know that after swapping, the A[rightPtr] is now ODD thus we
+            # don't care about A[rightPtr] anymore and shift rightPtr to check next element from this end
+            rightPtr -= 1
+    return A
 
 @enable_executor_hook
 def even_odd_wrapper(executor, A):
