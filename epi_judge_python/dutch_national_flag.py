@@ -14,6 +14,31 @@ def dutch_flag_partition(pivot_index: int, A: List[int]) -> None: # None bc don'
         rearranges the elements such that all elements less than A[i] (the "pivot") appear first, 
         followed by elements equal to the pivot, followed by elements greater than the pivot
     '''
+
+    # Each iteration decreases the size of UNCLASSIFIED by 1, and the time spent within each iteration is O(1),
+    # implying the time complexity is O(n). The space complexity is clearly O(1)
+
+    pivot = A[pivot_index]
+    # Keep the following invariants during partitioning:
+        # bottom group: A[:smaller]
+        # middle group: A[smaller:equal]
+        # unclassified group: A[equal:larger]
+        # top group: A[larger:]
+    smaller, equal, larger = 0, 0, len(A)
+    # Keep iterating as long as there is an unclassified element
+    while equal < larger:
+        # A[equal] is the incoming UNCLASSIFIED element
+        if A[equal] < pivot:
+            A[smaller], A[equal] = A[equal], A[smaller]
+            smaller, equal = smaller + 1, equal + 1
+        elif A[equal] == pivot:
+            equal += 1
+        else: # A[equal] > pivot
+            larger -= 1
+            A[equal], A[larger] = A[larger], A[equal]
+            
+
+    '''
     # To improve time complexity, we make a single pass and move all the elemtents less than the pivot to the beginning
     # in the second pass, we move the larger elements to the end
     # its easy to perform each pass in a single iteration, moving out of place elements as soon as they are discovered
@@ -33,7 +58,7 @@ def dutch_flag_partition(pivot_index: int, A: List[int]) -> None: # None bc don'
             # swap the pointers, NOT AT PIVOT INDEX
             A[i], A[larger] = A[larger], A[i]
             larger -= 1
-
+    '''
 
     '''
     TIME COMPLEXITY - O(N^2)
