@@ -8,11 +8,55 @@ from test_framework.test_utils import enable_executor_hook
 RED, WHITE, BLUE = range(3)
 
 
-def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+def dutch_flag_partition(pivot_index: int, A: List[int]) -> None: # None bc don't return anything
+    '''
+        Takes an array A and an index i in to A, and 
+        rearranges the elements such that all elements less than A[i] (the "pivot") appear first, 
+        followed by elements equal to the pivot, followed by elements greater than the pivot
+    '''
+    # To improve time complexity, we make a single pass and move all the elemtents less than the pivot to the beginning
+    # in the second pass, we move the larger elements to the end
+    # its easy to perform each pass in a single iteration, moving out of place elements as soon as they are discovered
+    # TIME COMPLEXITY - O(n)
+    # SPACE COMPLEXITY - O(1)
+    pivot = A[pivot_index]
+    smaller = 0 # pointer for to mark smaller than pivot
+    for i in range(len(A)):
+        if A[i] < pivot:
+            # swap the pointers, NOT AT PIVOT INDEX
+            A[i], A[smaller] = A[smaller], A[i]
+            smaller += 1 
+    # Second pass: group elements LARGER than pivot 
+    larger = len(A) - 1 # set pointer temporarily to last element to rep larger than pivot
+    for i in reversed(range(len(A))):
+        if A[i] > pivot:
+            # swap the pointers, NOT AT PIVOT INDEX
+            A[i], A[larger] = A[larger], A[i]
+            larger -= 1
 
 
+    '''
+    TIME COMPLEXITY - O(N^2)
+    SPACE COMPLEXITY - O(1)
+
+    pivot = A[pivot_index]
+    # First pass: group elements SMALLER than pivot
+    for i in range(len(A)):
+        # Look for a smaller element
+        for j in range(i + 1, len(A)):
+            if A[j] < pivot:
+                A[i], A[j] = A[j], A[i] # swap curr and next element
+                break
+
+    # Second pass: group elements LARGER than pivot
+    for i in reversed(range(len(A))):
+        # Look for a larger element. Stop when we reach an element less than
+        # pivot, since first pass has moved them to the start of A
+        for j in reversed(range(i)):
+            if A[j] > pivot:
+                A[i], A[j] = A[j], A[i] # swap curr and next element
+                break    
+    '''
 @enable_executor_hook
 def dutch_flag_partition_wrapper(executor, A, pivot_idx):
     count = [0, 0, 0]
