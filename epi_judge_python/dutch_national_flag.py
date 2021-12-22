@@ -37,7 +37,6 @@ def dutch_flag_partition(pivot_index: int, A: List[int]) -> None: # None bc don'
             larger -= 1
             A[equal], A[larger] = A[larger], A[equal]
             
-
     '''
     # To improve time complexity, we make a single pass and move all the elements less than the pivot to the beginning
     # in the second pass, we move the larger elements to the end
