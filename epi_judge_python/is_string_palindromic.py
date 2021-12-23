@@ -20,10 +20,10 @@ def is_palindromic(s: str) -> bool:
     return True
 
 if __name__ == '__main__':
-    print(is_palindromic("abcba"))
-    print(is_palindromic("abcdfcba"))
+    # print(is_palindromic("abcba"))
+    # print(is_palindromic("abcdfcba"))
 
-    # exit(
-    #     generic_test.generic_test_main('is_string_palindromic.py',
-    #                                    'is_string_palindromic.tsv',
-    #                                    is_palindromic))
+    exit(
+        generic_test.generic_test_main('is_string_palindromic.py',
+                                       'is_string_palindromic.tsv',
+                                       is_palindromic))
