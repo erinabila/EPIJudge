@@ -7,9 +7,13 @@ from test_framework.test_utils import enable_executor_hook
 
 # Insert new_node after node.
 def insert_after(node: ListNode, new_node: ListNode) -> None:
-    # TODO - you fill in here.
-    return
+    prev = node
+    while prev != node:
+        prev = prev.next
 
+    temp = prev.next
+    prev.next = new_node
+    new_node.next = temp
 
 @enable_executor_hook
 def insert_list_wrapper(executor, l, node_idx, new_node_data):
