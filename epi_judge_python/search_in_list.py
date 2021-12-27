@@ -3,9 +3,12 @@ from test_framework import generic_test
 
 
 def search_list(L: ListNode, key: int) -> ListNode:
-    # TODO - you fill in here.
-    return ListNode()
-
+    # obtaining the kth element in a list is expensive, having O(n) time complexity
+    while L:
+        if L.data == key:
+            break
+        L = L.next # traverse to next node
+    return L
 
 def search_list_wrapper(L, key):
     result = search_list(L, key)
