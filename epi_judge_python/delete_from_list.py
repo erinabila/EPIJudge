@@ -6,9 +6,12 @@ from test_framework.test_utils import enable_executor_hook
 
 
 # Delete the node past this one. Assume node is not a tail.
+# time complexity - O(1)
 def delete_after(node: ListNode) -> None:
-    # TODO - you fill in here.
-    return
+    curr = node
+    while curr != node:
+        curr = curr.next
+    curr.next = curr.next.next
 
 
 @enable_executor_hook
