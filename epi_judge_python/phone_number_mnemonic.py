@@ -10,7 +10,7 @@ MAPPING = ('0', '1', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ') #
 # digit =   0    1     2      3      4      5      6       7      8       9
 # ^ phone number's index = digit variable 
 def phone_mnemonic(phone_number: str) -> List[str]:
-    def phone_mnemonic_helper(digit: int) -> None:
+    def phone_mnemonic_helper(digit: int, partial_mnemonic) -> None:
         # reached the end 
         if digit == len(phone_number):
             # All digits are processed, so add partial_mnemonic to mnemonics.
@@ -18,13 +18,14 @@ def phone_mnemonic(phone_number: str) -> List[str]:
             mnemonics.append(''.join(partial_mnemonic)) # partial_mnemonic[] to str as an element appended to mnemonics[] - O(N) 
         else: # otherwise do recursion! 
             # Try all possible characters for this digit.
-            for c in MAPPING[int(phone_number[digit])]: # we check every letter from the mapping tuple at phone number's index(int) 
-                partial_mnemonic[digit] = c
-                phone_mnemonic_helper(digit + 1) # move on to next digit - O(4^N) 
+            for c in MAPPING[int(phone_number[digit])]:
+                # we check every letter from the mapping tuple at phone number's index(int) 
+                # partial_mnemonic[digit] = c
+                phone_mnemonic_helper(digit + 1, partial_mnemonic + c) # move on to next digit - O(4^N) 
 
     mnemonics: List[str] = []
-    partial_mnemonic = ['0'] * len(phone_number)
-    phone_mnemonic_helper(0)
+    # partial_mnemonic = ['0'] * len(phone_number)
+    phone_mnemonic_helper(0, "")
     return mnemonics
 
 if __name__ == '__main__':
